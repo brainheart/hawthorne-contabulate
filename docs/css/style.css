@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --parchment: #f7f3ea;
+  --paper: rgba(255, 255, 255, 0.84);
+  --ink: #2b2b2b;
+  --burgundy: #7f1d33;
+  --gold: #c89d3d;
+  --olive: #70825d;
+  --border: #d5c7b1;
+  --shadow: rgba(43, 43, 43, 0.09);
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Crimson Text', 'Georgia', 'Garamond', serif;
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at top, rgba(200, 157, 61, 0.13), transparent 32%),
+    linear-gradient(to bottom, var(--parchment) 0%, #fcfaf5 100%);
+}
+
+.site-header {
+  text-align: center;
+  padding: 4rem 1.5rem 1.5rem;
+}
+
+.eyebrow {
+  color: #756e63;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.site-title {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--burgundy);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.04em;
+}
+
+.site-subtitle {
+  font-size: 1.35rem;
+  color: #5f5a52;
+  font-style: italic;
+}
+
+main {
+  flex: 1;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px var(--shadow);
+  padding: 1.4rem 1.4rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.intro p {
+  max-width: 48rem;
+  font-size: 1.12rem;
+  color: #49443c;
+}
+
+.build-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: #676259;
+  font-size: 0.95rem;
+}
+
+.build-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--olive);
+  box-shadow: 0 0 0 6px rgba(112, 130, 93, 0.12);
+}
+
+h2 {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 1.45rem;
+  color: var(--burgundy);
+  margin-bottom: 0.35rem;
+}
+
+.section-note {
+  color: #6a655d;
+  margin-bottom: 1rem;
+}
+
+.works-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.works-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 0.98rem;
+}
+
+.works-table th,
+.works-table td {
+  border: 1px solid var(--border);
+  padding: 0.72rem 0.8rem;
+  text-align: left;
+}
+
+.works-table thead th,
+.totals-row td {
+  background: linear-gradient(to bottom, #faf8f3 0%, #f0ebe1 100%);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.works-table thead th.num,
+.works-table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.works-table tbody tr:nth-child(even) {
+  background: rgba(247, 243, 234, 0.55);
+}
+
+.totals-row td {
+  color: #5d574f;
+  border-top: 2px solid var(--border);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-size: 0.92rem;
+  color: #888176;
+}
+
+.footer-sep {
+  margin: 0 0.5rem;
+  color: var(--border);
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 2.8rem 1rem 1rem;
+  }
+
+  .site-title {
+    font-size: 2.2rem;
+  }
+
+  .site-subtitle {
+    font-size: 1.1rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .works-table {
+    font-size: 0.88rem;
+  }
+
+  .works-table th,
+  .works-table td {
+    padding: 0.55rem 0.6rem;
+  }
+}
