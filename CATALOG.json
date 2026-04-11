@@ -1,0 +1,86 @@
+[
+  {
+    "id": "twice-told-tales",
+    "title": "Twice-Told Tales",
+    "genre": "Stories",
+    "year": 1837,
+    "file": "texts/twice-told-tales.txt"
+  },
+  {
+    "id": "mosses",
+    "title": "Mosses from an Old Manse",
+    "genre": "Stories",
+    "year": 1846,
+    "file": "texts/mosses.txt"
+  },
+  {
+    "id": "scarlet-letter",
+    "title": "The Scarlet Letter",
+    "genre": "Novel",
+    "year": 1850,
+    "file": "texts/scarlet-letter.txt"
+  },
+  {
+    "id": "seven-gables",
+    "title": "The House of the Seven Gables",
+    "genre": "Novel",
+    "year": 1851,
+    "file": "texts/seven-gables.txt"
+  },
+  {
+    "id": "blithedale",
+    "title": "The Blithedale Romance",
+    "genre": "Novel",
+    "year": 1852,
+    "file": "texts/blithedale.txt"
+  },
+  {
+    "id": "marble-faun-1",
+    "title": "The Marble Faun, Vol. 1",
+    "genre": "Novel",
+    "year": 1860,
+    "file": "texts/marble-faun-1.txt"
+  },
+  {
+    "id": "marble-faun-2",
+    "title": "The Marble Faun, Vol. 2",
+    "genre": "Novel",
+    "year": 1860,
+    "file": "texts/marble-faun-2.txt"
+  },
+  {
+    "id": "fanshawe",
+    "title": "Fanshawe",
+    "genre": "Novel",
+    "year": 1828,
+    "file": "texts/fanshawe.txt"
+  },
+  {
+    "id": "wonder-book",
+    "title": "A Wonder-Book for Girls and Boys",
+    "genre": "Myth Retellings",
+    "year": 1851,
+    "file": "texts/wonder-book.txt"
+  },
+  {
+    "id": "tanglewood",
+    "title": "Tanglewood Tales",
+    "genre": "Myth Retellings",
+    "year": 1853,
+    "file": "texts/tanglewood.txt"
+  },
+  {
+    "id": "snow-image",
+    "title": "The Snow-Image, and Other Twice-Told Tales",
+    "genre": "Stories",
+    "year": 1852,
+    "file": "texts/snow-image.txt"
+  },
+  {
+    "id": "great-stone-face",
+    "title": "The Great Stone Face, and Other Tales",
+    "genre": "Stories",
+    "year": 1851,
+    "file": "texts/great-stone-face.txt"
+  }
+]
