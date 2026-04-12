@@ -20,11 +20,10 @@
   <p class="muted">the complete prose fiction of Nathaniel Hawthorne</p>
 
   <div class="tabs is-hidden">
-    <button class="tab-btn active" data-tab="segments">Rows are Contexts</button>
-    <button class="tab-btn" data-tab="lines">Rows are Paragraph Text</button>
+    <button class="tab-btn active" data-tab="lines">Rows are Paragraph</button>
   </div>
 
-  <div class="tab-content" id="segmentsTab">
+  <div class="tab-content is-hidden" id="segmentsTab">
     <div class="controls">
       <div class="controls-row">
         <button id="addColumnBtn" class="add-column-btn" type="button">Add Column</button>
@@ -39,7 +38,7 @@
           <option value="play">Work</option>
           <option value="act">Chapter</option>
           <option value="scene">Paragraph</option>
-          <option value="line" selected>Paragraph Text</option>
+          <option value="line" selected>Paragraph</option>
         </select>
         <span class="label-strong">matching</span>
         <select id="matchMode" class="control-select">
@@ -116,7 +115,7 @@
     </div>
   </div>
 
-  <div class="tab-content is-hidden" id="linesTab">
+  <div class="tab-content" id="linesTab">
     <div class="controls">
       <div class="controls-row">
         <span class="label-strong">Show paragraphs with</span>
@@ -666,22 +665,13 @@
     document.getElementById('segmentsNextPage').disabled = isSinglePage || segmentsCurrentPage === totalPages;
     document.getElementById('segmentsLastPage').disabled = isSinglePage || segmentsCurrentPage === totalPages;
   }
-  // Tab switching
+  // Tab switching (Hawthorne uses only the paragraph view)
   const tabBtns = document.querySelectorAll('.tab-btn');
   const segmentsTab = document.getElementById('segmentsTab');
   const linesTab = document.getElementById('linesTab');
-  
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetTab = btn.dataset.tab;
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      setElementHidden(segmentsTab, targetTab !== 'segments');
-      setElementHidden(linesTab, targetTab !== 'lines');
-      updateDeepLink();
-    });
-  });
+
+  setElementHidden(segmentsTab, true);
+  setElementHidden(linesTab, false);
 
   async function loadJSON(path) {
     const res = await fetch(path);
@@ -1892,21 +1882,11 @@
     linesTabController.doSearch();
   }
 
-  // initial state for contexts tab (only if no deep link state applied)
+  // initial state for Hawthorne: paragraph view only
   if (!appliedDeepLinkState) {
-    gran.value = 'play';
+    gran.value = 'line';
     doSearch();
   }
-
-  // Local testing override: force a tab open without affecting normal defaults/deep links
-  (function applyShowTabOverride() {
-    const sp = new URLSearchParams(location.search);
-    const forcedTab = (sp.get('showtab') || '').trim();
-    if (!forcedTab) return;
-    if (forcedTab !== 'segments' && forcedTab !== 'lines') return;
-    const btn = document.querySelector(`.tab-btn[data-tab="${forcedTab}"]`);
-    if (btn) btn.click();
-  })();
   
   // Color Scale Module — loaded from js/color-scale.js
   // Initialize with dependencies
