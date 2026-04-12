@@ -391,7 +391,7 @@ def build_json_corpus(catalog):
 
                 canonical_id = f"{play_abbr}.{section_num}.{para_idx}"
                 location = f"{play_location}.{section_num:03d}.{para_idx:04d}"
-                scene_label = f"\u00b6{para_idx}"
+                scene_label = str(para_idx)
 
                 chunks.append(
                     {
