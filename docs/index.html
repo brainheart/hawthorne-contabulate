@@ -713,6 +713,7 @@
       loadJSON('data/character_name_filter_config.json').catch(() => null),
     ]);
   } catch(e) {
+    setLoadingState(true, 'Unable to load data. Please reload the page.');
     console.error('Failed to load data:', e);
     return;
   }
@@ -720,6 +721,7 @@
 
   // Load line data
   try {
+    setLoadingState(true, 'Loading paragraph text...');
     allLines = await loadJSON('lines/all_lines.json');
   } catch(e) {
     console.warn('Verse data not available:', e);
@@ -743,6 +745,8 @@
   }
 
   // Name normalization util used elsewhere
+
+  setLoadingState(false);
 
   renderExtraTerms();
 
@@ -1900,8 +1904,6 @@
     if (!linesTabController) return;
     linesTabController.doSearch();
   }
-
-  setLoadingState(false);
 
   // initial state for Hawthorne: paragraph view only
   if (!appliedDeepLinkState) {
