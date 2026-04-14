@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+  <div id="loadingIndicator" class="loading-indicator" role="status" aria-live="polite">
+    <div class="loading-indicator-card">
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p id="loadingMessage" class="loading-message">Loading data...</p>
+    </div>
+  </div>
   <h1><a href="https://contabulate.org/">Contabulate</a>: 🌹 Hawthorne Tabular Search</h1>
   <p class="muted">Search words, bigrams, or trigrams across the complete prose fiction of Nathaniel Hawthorne. Use regex (e.g., <code>^scarlet$</code>) or plain text. Source texts courtesy of Project Gutenberg.</p>
   <p class="muted">the complete prose fiction of Nathaniel Hawthorne</p>
@@ -673,6 +679,18 @@
   setElementHidden(segmentsTab, true);
   setElementHidden(linesTab, false);
 
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  const loadingMessage = document.getElementById('loadingMessage');
+
+  function setLoadingState(isLoading, message) {
+    if (loadingMessage && typeof message === 'string' && message) {
+      loadingMessage.textContent = message;
+    }
+    if (loadingIndicator) {
+      loadingIndicator.classList.toggle('is-hidden', !isLoading);
+    }
+  }
+
   async function loadJSON(path) {
     const res = await fetch(path);
     if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
@@ -680,6 +698,7 @@
   }
 
   let chunks=[], tokens={}, tokens2={}, tokens3={}, plays=[], characters=[], tokensChar={}, tokensChar2={}, tokensChar3={}, allLines=[], characterNameFilterConfig=null;
+  setLoadingState(true, "Loading data...");
   try {
     [chunks, tokens, tokens2, tokens3, plays, characters, tokensChar, tokensChar2, tokensChar3, characterNameFilterConfig] = await Promise.all([
       loadJSON('data/chunks.json'),
@@ -1881,6 +1900,8 @@
     if (!linesTabController) return;
     linesTabController.doSearch();
   }
+
+  setLoadingState(false);
 
   // initial state for Hawthorne: paragraph view only
   if (!appliedDeepLinkState) {
