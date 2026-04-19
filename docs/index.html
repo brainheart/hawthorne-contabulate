@@ -26,10 +26,11 @@
   <p class="muted">the complete prose fiction of Nathaniel Hawthorne</p>
 
   <div class="tabs is-hidden">
-    <button class="tab-btn active" data-tab="lines">Rows are Paragraph</button>
+    <button class="tab-btn active" data-tab="segments">Rows are Contexts</button>
+    <button class="tab-btn" data-tab="lines">Rows are Paragraph Text</button>
   </div>
 
-  <div class="tab-content is-hidden" id="segmentsTab">
+  <div class="tab-content" id="segmentsTab">
     <div class="controls">
       <div class="controls-row">
         <button id="addColumnBtn" class="add-column-btn" type="button">Add Column</button>
@@ -44,7 +45,7 @@
           <option value="play">Work</option>
           <option value="act">Chapter</option>
           <option value="scene">Paragraph</option>
-          <option value="line" selected>Paragraph</option>
+          <option value="line" selected>Paragraph Text</option>
         </select>
         <span class="label-strong">matching</span>
         <select id="matchMode" class="control-select">
@@ -59,7 +60,7 @@
             <option value="3">trigrams</option>
           </select>
         </span>
-        <input id="q" class="query-input" type="text" placeholder="e.g., whale, white whale, ^ahab">
+        <input id="q" class="query-input" type="text" placeholder="e.g., scarlet, Hester, ^Puritan$">
       </div>
       <div id="termWarning" class="warning is-hidden" role="status" aria-live="polite"></div>
     </div>
@@ -121,7 +122,7 @@
     </div>
   </div>
 
-  <div class="tab-content" id="linesTab">
+  <div class="tab-content is-hidden" id="linesTab">
     <div class="controls">
       <div class="controls-row">
         <span class="label-strong">Show paragraphs with</span>
@@ -135,7 +136,7 @@
           <option value="exact">exact term</option>
           <option value="regex">regex pattern</option>
         </select>
-        <input type="text" class="query-input-lines" id="linesQuery" placeholder="e.g., whale, white whale, ^ahab">
+        <input type="text" class="query-input-lines" id="linesQuery" placeholder="e.g., scarlet, Hester, ^Puritan$">
       </div>
     </div>
 
@@ -671,13 +672,22 @@
     document.getElementById('segmentsNextPage').disabled = isSinglePage || segmentsCurrentPage === totalPages;
     document.getElementById('segmentsLastPage').disabled = isSinglePage || segmentsCurrentPage === totalPages;
   }
-  // Tab switching (Hawthorne uses only the paragraph view)
+  // Tab switching
   const tabBtns = document.querySelectorAll('.tab-btn');
   const segmentsTab = document.getElementById('segmentsTab');
   const linesTab = document.getElementById('linesTab');
 
-  setElementHidden(segmentsTab, true);
-  setElementHidden(linesTab, false);
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      setElementHidden(segmentsTab, targetTab !== 'segments');
+      setElementHidden(linesTab, targetTab !== 'lines');
+      updateDeepLink();
+    });
+  });
 
   const loadingIndicator = document.getElementById('loadingIndicator');
   const loadingMessage = document.getElementById('loadingMessage');
@@ -775,7 +785,10 @@
         // ignore palette and steps from URL to keep behavior consistent and URLs clean
         if (sp.has('hl')) colorScaleState.highlightEnabled = sp.get('hl') === '1';
         syncColorScaleToggles(); syncColorScaleOptions(); syncHighlightToggles();
-        // Tab (ignored; segments only)
+        if (sp.has('tab')) {
+          const btn = document.querySelector(`.tab-btn[data-tab="${sp.get('tab')}"]`);
+          if (btn) btn.click();
+        }
         // Segments
         if (sp.has('q')) q.value = sp.get('q');
         else if (sp.has('ts')) q.value = '';
@@ -1517,7 +1530,6 @@
     if (granVal==='genre'){
       const baseCols = [
         {key:'genre', label:'Genre', defaultDir:'asc', type:'text'},
-        {key:'title', label:'Genre', defaultDir:'asc', type:'text'},
         {key:'num_plays', label:'# works', type:'number'},
         {key:'ngram_count', label: getBaseCountLabel(), type:'number'}
       ];
@@ -1909,11 +1921,21 @@
     linesTabController.doSearch();
   }
 
-  // initial state for Hawthorne: paragraph view only
+  // initial state for contexts tab (only if no deep link state applied)
   if (!appliedDeepLinkState) {
-    gran.value = 'line';
+    gran.value = 'play';
     doSearch();
   }
+
+  // Local testing override: force a tab open without affecting normal defaults/deep links
+  (function applyShowTabOverride() {
+    const sp = new URLSearchParams(location.search);
+    const forcedTab = (sp.get('showtab') || '').trim();
+    if (!forcedTab) return;
+    if (forcedTab !== 'segments' && forcedTab !== 'lines') return;
+    const btn = document.querySelector(`.tab-btn[data-tab="${forcedTab}"]`);
+    if (btn) btn.click();
+  })();
   
   // Color Scale Module — loaded from js/color-scale.js
   // Initialize with dependencies
