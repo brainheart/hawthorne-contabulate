@@ -1,0 +1,12 @@
+{
+  "id": "hawthorne",
+  "emoji": "🌹",
+  "title": "Hawthorne",
+  "tagline": "Hawthorne Tabular Explorer",
+  "language": "English",
+  "url": "https://hawthorne.contabulate.org/",
+  "source": "https://github.com/brainheart/hawthorne-contabulate",
+  "text_label": "works",
+  "segment_label": "paragraphs",
+  "sample_queries": []
+}

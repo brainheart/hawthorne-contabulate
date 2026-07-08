@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "hawthorne",
+  "emoji": "🌹",
+  "title": "Hawthorne",
+  "tagline": "Hawthorne Tabular Explorer",
+  "language": "English",
+  "url": "https://hawthorne.contabulate.org/",
+  "source": "https://github.com/brainheart/hawthorne-contabulate",
+  "sample_queries": [],
+  "updated": "2026-07-08",
+  "stats": {
+    "texts": 12,
+    "text_label": "works",
+    "segments": 10452,
+    "segment_label": "paragraphs",
+    "words": 924507,
+    "distinct_words": 27401
+  }
+}
