@@ -155,10 +155,13 @@ class TestPublishedMetadata(unittest.TestCase):
         self.assertGreater(sum(c["hapax_count"] for c in chunks), 5000)
         instance = json.loads((DATA_DIR.parent / "instance.json").read_text())
         self.assertEqual(instance["id"], "hawthorne")
+        self.assertEqual(instance["created"], "2026-04-10")
         self.assertEqual(instance["stats"]["texts"], 12)
         self.assertEqual(instance["stats"]["segments"], 10452)
         self.assertEqual(instance["stats"]["words"], 924507)
         self.assertEqual(instance["stats"]["segment_label"], "paragraphs")
+        self.assertEqual(instance["stats"]["commentaries"], 0)
+        self.assertEqual(instance["stats"]["comments"], 0)
 
     def test_characters_are_empty_for_hawthorne_build(self):
         chars = json.loads((DATA_DIR / "characters.json").read_text())

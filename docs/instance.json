@@ -5,16 +5,19 @@
   "title": "Hawthorne",
   "tagline": "Hawthorne Tabular Explorer",
   "language": "English",
+  "created": "2026-04-10",
   "url": "https://hawthorne.contabulate.org/",
   "source": "https://github.com/brainheart/hawthorne-contabulate",
   "sample_queries": [],
-  "updated": "2026-07-08",
+  "updated": "2026-07-10",
   "stats": {
     "texts": 12,
     "text_label": "works",
     "segments": 10452,
     "segment_label": "paragraphs",
     "words": 924507,
-    "distinct_words": 27401
+    "distinct_words": 27401,
+    "commentaries": 0,
+    "comments": 0
   }
 }
